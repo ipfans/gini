@@ -1,2 +1,2 @@
-# ginic
+# gini
 Toolkit to work better with go-gin
