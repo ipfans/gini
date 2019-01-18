@@ -18,7 +18,7 @@ type errDesc struct {
 	Msg    string
 }
 
-// RenderBody json render layout.
+// JSONRenderBody json render layout.
 type JSONRenderBody struct {
 	Status int         `json:"status"`
 	Msg    string      `json:"msg"`
