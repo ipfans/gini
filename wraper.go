@@ -19,7 +19,7 @@ type errDesc struct {
 }
 
 // RenderBody json render layout.
-type RenderBody struct {
+type JSONRenderBody struct {
 	Status int         `json:"status"`
 	Msg    string      `json:"msg"`
 	Data   interface{} `json:"data"`
@@ -35,12 +35,12 @@ func RegisterError(err error, status int, desc string) {
 	errRWLock.Unlock()
 }
 
-// RenderWrap to write valid response.
-func RenderWrap(next func(*gin.Context) error) gin.HandlerFunc {
+// JSONRenderWrap to write valid response.
+func JSONRenderWrap(next func(*gin.Context) error) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		err := next(c)
 		if err != nil {
-			resp := RenderBody{Data: defaultMapValue}
+			resp := JSONRenderBody{Data: defaultMapValue}
 
 			errRWLock.RLock()
 			v, ok := errMap[err]
@@ -56,7 +56,7 @@ func RenderWrap(next func(*gin.Context) error) gin.HandlerFunc {
 			return
 		}
 		data, _ := c.Get("data")
-		resp := RenderBody{
+		resp := JSONRenderBody{
 			Status: http.StatusOK,
 			Data:   data,
 		}

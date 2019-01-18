@@ -14,11 +14,11 @@ func TestRenderWrap(t *testing.T) {
 	r := gin.New()
 	err := errors.New("whoooo")
 	gin.SetMode(gin.ReleaseMode)
-	r.GET("/", RenderWrap(func(c *gin.Context) error {
+	r.GET("/", JSONRenderWrap(func(c *gin.Context) error {
 		c.Set("data", "hello")
 		return nil
 	}))
-	r.GET("/err", RenderWrap(func(c *gin.Context) error {
+	r.GET("/err", JSONRenderWrap(func(c *gin.Context) error {
 		return err
 	}))
 	w1 := httptest.NewRecorder()
